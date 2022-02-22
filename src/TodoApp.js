@@ -18,6 +18,7 @@ const TodoApp = () => {
     ]);
 
     const nextId = useRef(3); //새로 추가할 항목에서 사용할 id
+    
     const onInsert = useCallback(text => {
         setTodos(todos.concat(
             {
@@ -35,10 +36,14 @@ const TodoApp = () => {
         )
     }, [todos]);
 
+    const onRemove = useCallback(id => {
+        setTodos(todos.filter(todo => todo.id !== id));
+    }, [todos]);
+
     return(
         <div>
             <TodoForm data-testid='helloworld' onInsert={onInsert} />
-            <TodoList todos={todos} onToggle={onToggle} />
+            <TodoList todos={todos} onToggle={onToggle} onRemove={onRemove} />
         </div>
     );
 }
